@@ -1,0 +1,11 @@
+createAddress##Create a new address controlled by the given user.       ##curl -X POST --data '{"jsonrpc": "2.0","method": "avm.createAddress","params": {"username":"'$3'","password":"'$4'"},"id":1}' -H 'content-type:application/json;' 127.0.0.1:9650/ext/bc/X
+Usage: ./pxa avm createAddress [username] [password]
+Examp: ./pxa avm createAddress myUsername myPassword
+
+listAddresses##List addresses controlled by the given user.             ##curl -X POST --data '{"jsonrpc": "2.0","method": "avm.listAddresses","params": {"username":"'$3'","password":"'$4'"},"id":1}' -H 'content-type:application/json;' 127.0.0.1:9650/ext/bc/X
+Usage: ./pxa avm listAddresses [username] [password]
+Examp: ./pxa avm listAddresses myUsername myPassword
+
+getBalance##Get the balance of an asset controlled by a given address.  ##curl -X POST --data '{"jsonrpc":"2.0","id":1,"method":"avm.getBalance","params" :{"address":"'$3'","assetID":"'$4'"}}' -H 'content-type:application/json;' 127.0.0.1:9650/ext/bc/X
+Usage: ./pxa avm getBalance [address] [assetid]
+Examp: ./pxa avm getBalance X-EKpEPX56YA1dsaHBsW8X5nGqNSwJ7JrWH AVA
