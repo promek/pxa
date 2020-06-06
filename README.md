@@ -54,7 +54,7 @@ $ ./pxa admin getNodeID
 
 ---
 
-##Create a new file for the new commands you want. Write your new commands into that file. it's that easy ...
+## Create a new file for the new commands you want. Write your new commands into that file. it's that easy ...
 
 
 
