@@ -1,0 +1,8 @@
+getNodeID##Get the ID of this node.                                         ##curl -X POST --data '{"jsonrpc":"2.0","id":1,"method" :"admin.getNodeID"}' -H 'content-type:application/json;' 127.0.0.1:9650/ext/admin
+Usage: ./pxa admin getNodeID
+
+peers##Get description of peer connections.                                 ##curl -X POST --data '{"jsonrpc":"2.0","id":1,"method" :"admin.peers"}' -H 'content-type:application/json;' 127.0.0.1:9650/ext/admin
+Usage: ./pxa admin peers
+
+getNetworkID##Get the ID of the network this node is participating in.      ##curl -X POST --data '{"jsonrpc":"2.0","id":1,"method" :"admin.getNetworkID"}' -H 'content-type:application/json;' 127.0.0.1:9650/ext/admin
+Usage: ./pxa admin getNetworkID

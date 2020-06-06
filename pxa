@@ -1,0 +1,110 @@
+#!/bin/bash
+################################################################################
+# The MIT License (MIT)
+#
+# Copyright (c) 2020 ibrahim SEN
+# https://github.com/promek/pxa
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+################################################################################
+
+OLDIFS="$IFS"
+
+exit_pxa() {
+	IFS="$OLDIFS"
+	exit 0
+}
+
+footer() {
+	echo -e "\e[0m"
+	echo -e "Practical Command Execution For Ava v0.1"
+	echo -e "https://github.com/promek/pxa"
+}
+
+#practical command usage
+
+usage_cmf() {
+	echo "Usage: pxa COMMAND_FILE"
+	echo ''
+	echo 'Available command files : '
+	echo ''
+
+	for fl in *; do
+		if [[ -f $fl ]]; then
+	  	if [[ ! 'LICENSE' =~ $fl ]] && [[ ! 'README.md' =~ $fl ]] && [[ ! 'pxa' =~ $fl ]]; then
+	  	echo -e "  "$fl
+		fi
+	fi
+	done
+	footer
+}
+
+usage_cmd() {
+  echo "Usage: pxa "$cmf" ITEM [PARAMS]"
+	echo ''
+  while read line ; do
+      IFS="##"; read -ra cmd <<< "$line"
+      if [ -z "${cmd[2]}" ]; then
+        echo -e "    \e[0m"${cmd[0]}
+      else
+		if [ -z "${cmd[0]}" ]; then
+			echo -e " \e[1m"${cmd[2]}
+		else
+			echo -e " \e[1m"${cmd[0]}') \e[1m'${cmd[2]}" \e[0m"
+			#echo -e " \e[1m"${cmd[0]}') \e[1m'${cmd[2]}" \n    \e[0m"${cmd[4]}
+		fi
+      fi
+  done < "./"$cmf
+	footer
+}
+
+if [ -z "$1" ] || [ $1 = "-h" ]; then
+  usage_cmf
+	exit_pxa
+else
+	if [ ! -z "$1" ] && [ ! -f "$1" ]; then
+		usage_cmf
+		exit_pxa
+	else
+		cmf=$1
+	fi
+	if [ -z "$2" ]; then
+		usage_cmd
+		exit_pxa
+	fi
+fi
+
+ispar=false
+while read line ; do
+    IFS='##' read -ra cmd <<< "$line"
+    if [[ (${cmd[0]} == $2) ]]; then
+      ispar=true
+      if [[ 'scripts' =~ ${cmd[4]} ]];  then
+          ${cmd[4]}
+      else
+        eval ${cmd[4]}
+      fi
+    fi
+done < "./"$cmf
+
+if [ $ispar = false ]; then
+  usage_cmd
+fi
+
+exit_pxa
